@@ -1,3 +1,9 @@
+variable "name" {
+  type        = string
+  default     = ""
+  description = "Name of the resource. Provided by the client when the resource is created. "
+}
+
 variable "environment" {
   type        = string
   default     = ""
@@ -6,48 +12,56 @@ variable "environment" {
 
 variable "label_order" {
   type        = list(any)
-  default     = []
+  default     = ["name", "environment"]
   description = "Label order, e.g. sequence of application name and environment `name`,`environment`,'attribute' [`webserver`,`qa`,`devops`,`public`,] ."
 }
 
-variable "name" {
+variable "repository" {
   type        = string
-  default     = ""
-  description = "Name of the resource. Provided by the client when the resource is created. "
+  default     = "https://github.com/slovink/terraform-google-firewall"
+  description = "Terraform current module repo"
 }
 
-variable "google_compute_firewall_enabled" {
-  type    = bool
-  default = true
-}
-
-variable "module_enabled" {
-  type    = bool
-  default = true
-}
-
-variable "protocol" {
+variable "managedby" {
   type        = string
-  default     = ""
-  description = "The IP protocol to which this rule applies. The protocol type is required when creating a firewall rule."
-}
-
-variable "project_id" {
-  type        = string
-  default     = ""
-  description = "The project in which the resource belongs. If it is not provided, the provider project is used."
-}
-
-variable "description" {
-  type        = string
-  default     = ""
-  description = "Creates Firewall rule targetting tagged instances"
+  default     = "slovink"
+  description = "ManagedBy, eg 'slovink'."
 }
 
 variable "network" {
   type        = string
   default     = ""
-  description = "The name or self_link of the network to attach this firewall to."
+  description = "(Required) The VPC network the subnets belong to. Only networks that are in the distributed mode can have subnetworks."
+}
+
+variable "enabled" {
+  type        = bool
+  default     = true
+  description = "A boolean flag to enable/disable firewall."
+}
+
+variable "firewall_enabled" {
+  type        = bool
+  default     = true
+  description = "A boolean flag to enable/disable firewall."
+}
+
+variable "direction" {
+  type        = string
+  default     = "INGRESS"
+  description = "Optional) Direction of traffic to which this firewall applies; default is INGRESS. Note: For INGRESS traffic, one of source_ranges, source_tags or source_service_accounts is required. Possible values are: INGRESS, EGRESS."
+}
+
+variable "disabled" {
+  type        = bool
+  default     = false
+  description = " (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the network it is associated with. When set to true, the firewall rule is not enforced and the network behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled."
+}
+
+variable "priority" {
+  type        = number
+  default     = 1000
+  description = "The priority of this route."
 }
 
 variable "allow" {
@@ -56,19 +70,14 @@ variable "allow" {
   description = "(Optional) The list of ALLOW rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a permitted connection."
 }
 
-variable "ports" {
-  type    = list(number)
-  default = []
-}
-
-variable "source_tags" {
-  type        = list(string)
+variable "deny" {
+  type        = list(any)
   default     = []
-  description = "Nomes de tags que serão utilizadas para utilizar com esta regra de firewall"
+  description = "(Optional) The list of deny rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a permitted connection."
 }
 
 variable "source_ranges" {
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
-  description = "IP que será liberado para acessar"
+  type        = any
+  default     = []
+  description = "(Optional) If source ranges are specified, the firewall will apply only to traffic that has source IP address in these ranges."
 }
