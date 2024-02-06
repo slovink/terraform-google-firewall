@@ -8,7 +8,7 @@ provider "google" {
 ##### vpc module call.
 #####==============================================================================
 module "vpc" {
-  source                                    = "git::https://github.com/slovink/terraform-google-firewall.git?ref=v1.0.0"
+  source                                    = "git::https://github.com/slovink/terraform-google-vpc.git?ref=v1.0.0"
   name                                      = "ops"
   environment                               = "test"
   routing_mode                              = "REGIONAL"
