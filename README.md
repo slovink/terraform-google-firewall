@@ -23,7 +23,6 @@ To get started, make sure you have configured your GCP provider. You can use the
 
 module "firewall" {
   source        = "git::https://github.com/slovink/terraform-google-firewall.git?ref=v1.0.0"
-  version       = "1.0.1"
   name          = "app"
   environment   = "test"
   network       = module.vpc.vpc_id
