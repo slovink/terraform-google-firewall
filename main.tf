@@ -1,5 +1,5 @@
 module "labels" {
-  source      = "git::git@github.com:slovink/terraform-google-labels.git"
+  source      = "git::https://github.com/slovink/terraform-google-labels.git?ref=v1.0.2"
   name        = var.name
   environment = var.environment
   label_order = var.label_order

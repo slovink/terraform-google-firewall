@@ -1,5 +1,5 @@
 # Terraform-google-firewall
-# Terraform Google Cloud firewall Module
+# Terraform Google Cloud Firewall Module
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ To get started, make sure you have configured your GCP provider. You can use the
 ```hcl
 
 module "firewall" {
-  source        = "slovink/firewall/google"
+  source        = "git::https://github.com/slovink/terraform-google-firewall.git?ref=v1.0.0"
   version       = "1.0.1"
   name          = "app"
   environment   = "test"
@@ -66,7 +66,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/slovink/terraform-google-lables.git | v1.0.0 |
+| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/slovink/terraform-google-labels.git | v1.0.2 |
 
 ## Resources
 
