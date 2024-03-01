@@ -1,5 +1,5 @@
 module "labels" {
-  source      = "git::https://github.com/slovink/terraform-google-labels.git?ref=v1.0.2"
+  source      = "git::https://github.com/slovink/terraform-google-labels.git?ref=v1.0.0"
   name        = var.name
   environment = var.environment
   label_order = var.label_order
@@ -11,12 +11,12 @@ data "google_client_config" "current" {
 }
 
 #####==============================================================================
-##### Each network has its own firewall controlling access to and from the instances.
+##### Each firewall has its own firewall controlling access to and from the instances.
 #####==============================================================================
 resource "google_compute_firewall" "default" {
   count     = var.enabled && var.firewall_enabled ? 1 : 0
   name      = format("%s-firewall", module.labels.id)
-  network   = var.network
+  firewall  = var.firewall
   direction = var.direction
   disabled  = var.disabled
   priority  = var.priority

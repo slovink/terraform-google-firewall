@@ -28,10 +28,10 @@ variable "managedby" {
   description = "ManagedBy, eg 'slovink'."
 }
 
-variable "network" {
+variable "firewall" {
   type        = string
   default     = ""
-  description = "(Required) The VPC network the subnets belong to. Only networks that are in the distributed mode can have subnetworks."
+  description = "(Required) The VPC firewall the firewall belong to. Only firewalls that are in the distributed mode can have subfirewalls."
 }
 
 variable "enabled" {
@@ -55,7 +55,7 @@ variable "direction" {
 variable "disabled" {
   type        = bool
   default     = false
-  description = " (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the network it is associated with. When set to true, the firewall rule is not enforced and the network behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled."
+  description = " (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the firewall it is associated with. When set to true, the firewall rule is not enforced and the firewall behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled."
 }
 
 variable "priority" {

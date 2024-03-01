@@ -1,3 +1,33 @@
+<p align="center"> <img src="https://user-images.githubusercontent.com/50652676/62349836-882fef80-b51e-11e9-99e3-7b974309c7e3.png" width="100" height="100"></p>
+
+
+<h1 align="center">
+    Terraform google firewall
+</h1>
+
+<p align="center" style="font-size: 1.2rem;">
+    Terraform module to create firewall resource on google.
+     </p>
+
+<p align="center">
+
+<a href="https://www.terraform.io">
+  <img src="https://img.shields.io/badge/Terraform-v1.7.4-green" alt="Terraform">
+</a>
+<a href="https://github.com/slovink/terraform-google-firewall/blob/main/LICENSE">
+  <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
+</a>
+
+</p>
+<p align="center">
+
+<a href='https://www.facebook.com/Slovink.in=https://github.com/slovink/terraform-lables'>
+  <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
+</a>
+<a href='https://www.linkedin.com/company/101534993/admin/feed/posts/=https://github.com/slovink/terraform-lables'>
+  <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
+</a>
+
 # Terraform-google-firewall
 # Terraform Google Cloud Firewall Module
 
@@ -25,7 +55,7 @@ module "firewall" {
   source        = "git::https://github.com/slovink/terraform-google-firewall.git?ref=v1.0.0"
   name          = "app"
   environment   = "test"
-  network       = module.vpc.vpc_id
+  firewall       = module.vpc.vpc_id
   priority      = 1000
   source_ranges = ["0.0.0.0/0"]
 
@@ -52,20 +82,20 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6.6 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | >= 3.50, < 5.11.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.7.4 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >= 3.50, < 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | >= 3.50, < 5.11.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 3.50, < 5.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/slovink/terraform-google-labels.git | v1.0.2 |
+| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/slovink/terraform-google-labels.git | v1.0.0 |
 
 ## Resources
 
@@ -81,14 +111,14 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_allow"></a> [allow](#input\_allow) | (Optional) The list of ALLOW rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a permitted connection. | `list(any)` | `[]` | no |
 | <a name="input_deny"></a> [deny](#input\_deny) | (Optional) The list of deny rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a permitted connection. | `list(any)` | `[]` | no |
 | <a name="input_direction"></a> [direction](#input\_direction) | Optional) Direction of traffic to which this firewall applies; default is INGRESS. Note: For INGRESS traffic, one of source\_ranges, source\_tags or source\_service\_accounts is required. Possible values are: INGRESS, EGRESS. | `string` | `"INGRESS"` | no |
-| <a name="input_disabled"></a> [disabled](#input\_disabled) | (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the network it is associated with. When set to true, the firewall rule is not enforced and the network behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled. | `bool` | `false` | no |
+| <a name="input_disabled"></a> [disabled](#input\_disabled) | (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the firewall it is associated with. When set to true, the firewall rule is not enforced and the firewall behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled. | `bool` | `false` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | A boolean flag to enable/disable firewall. | `bool` | `true` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
+| <a name="input_firewall"></a> [firewall](#input\_firewall) | (Required) The VPC firewall the firewall belong to. Only firewalls that are in the distributed mode can have subfirewalls. | `string` | `""` | no |
 | <a name="input_firewall_enabled"></a> [firewall\_enabled](#input\_firewall\_enabled) | A boolean flag to enable/disable firewall. | `bool` | `true` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | Label order, e.g. sequence of application name and environment `name`,`environment`,'attribute' [`webserver`,`qa`,`devops`,`public`,] . | `list(any)` | <pre>[<br>  "name",<br>  "environment"<br>]</pre> | no |
 | <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'slovink'. | `string` | `"slovink"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the resource. Provided by the client when the resource is created. | `string` | `""` | no |
-| <a name="input_network"></a> [network](#input\_network) | (Required) The VPC network the subnets belong to. Only networks that are in the distributed mode can have subnetworks. | `string` | `""` | no |
 | <a name="input_priority"></a> [priority](#input\_priority) | The priority of this route. | `number` | `1000` | no |
 | <a name="input_repository"></a> [repository](#input\_repository) | Terraform current module repo | `string` | `"https://github.com/slovink/terraform-google-firewall"` | no |
 | <a name="input_source_ranges"></a> [source\_ranges](#input\_source\_ranges) | (Optional) If source ranges are specified, the firewall will apply only to traffic that has source IP address in these ranges. | `any` | `[]` | no |
