@@ -2,64 +2,133 @@
 
 
 <h1 align="center">
-    Terraform Gcp Firewall
+    Terraform google firewall
 </h1>
 
-<p align="center" style="font-size: 1.2rem;"> 
-    Terraform module to create Firewall resource on Gcp.
+<p align="center" style="font-size: 1.2rem;">
+    Terraform module to create firewall resource on google.
      </p>
 
 <p align="center">
 
 <a href="https://www.terraform.io">
-  <img src="https://img.shields.io/badge/Terraform-v1.1.7-green" alt="Terraform">
+  <img src="https://img.shields.io/badge/Terraform-v1.7.4-green" alt="Terraform">
 </a>
-<a href="LICENSE.md">
+<a href="https://github.com/slovink/terraform-google-firewall/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
 </a>
 
+</p>
+<p align="center">
 
-## Prerequisites
+<a href='https://www.facebook.com/Slovink.in=https://github.com/slovink/terraform-lables'>
+  <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
+</a>
+<a href='https://www.linkedin.com/company/101534993/admin/feed/posts/=https://github.com/slovink/terraform-lables'>
+  <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
+</a>
 
-This module has a few dependencies:
+# Terraform-google-firewall
+# Terraform Google Cloud Firewall Module
 
-- [Terraform 1.x.x](https://learn.hashicorp.com/terraform/getting-started/install.html)
-- [Go](https://golang.org/doc/install)
+## Table of Contents
 
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Examples](#examples)
+- [License](#license)
+- [Author](#author)
+- [Inputs](#inputs)
+- [Outputs](#outputs)
 
+## Introduction
 
+This project deploys a Google Cloud infrastructure using Terraform to create firewall .
 
+## Usage
 
+To get started, make sure you have configured your GCP provider. You can use the following code as a starting point:
+## Example: firewall
+```hcl
 
+module "firewall" {
+  source        = "git::https://github.com/slovink/terraform-google-firewall.git?ref=v1.0.0"
+  name          = "app"
+  environment   = "test"
+  firewall       = module.vpc.vpc_id
+  priority      = 1000
+  source_ranges = ["0.0.0.0/0"]
+
+  allow = [
+    {
+      protocol = "tcp"
+      ports    = ["22", "80"]
+    }
+  ]
+}
+```
+Make sure to configure the provider block with your GCP credentials or use other authentication methods. Adjust the variables according to your requirements.
 
 ## Examples
+For detailed examples on how to use these modules, please refer to the [Examples](https://github.com/slovink/terraform-google-firewall/tree/master/example) directory within this repository.
+## Author
+Your Name Replace **MIT** and **slovink** with the appropriate license and your information. Feel free to expand this README with additional details or usage instructions as needed for your specific use case.
 
+## License
+This project is licensed under the **MIT** License - see the [LICENSE](https://github.com/slovink/terraform-google-firewall/blob/master/LICENCE) file for details.
 
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/slovink/terraform-gcp-firewall).
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.7.4 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >= 3.50, < 5.0 |
 
-### Simple Example
-Here is an example of how you can use this module in your inventory structure:
-  ```hcl
-module "firewall" {
-  source = "../"
+## Providers
 
-  name                            = "test-firewall"
-  module_enabled                  = true
-  google_compute_firewall_enabled = true
-  project_id                      = var.gcp_project_id
-  network                         = module.vpc.vpc_id
-  description                     = "Creates firewall rule targeting tagged instances."
-  protocol                        = "TCP"
-  ports                           = ["80", "4440", "443", "22"]
-  source_ranges                   = ["0.0.0.0/0"]
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | >= 3.50, < 5.0 |
 
-}
-  ```
+## Modules
 
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/slovink/terraform-google-labels.git | v1.0.0 |
 
+## Resources
 
-## Feedback
-If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/slovink/terraform-gcp-firewall), or feel free to drop us an email at [devops@slovink.com](devops@slovink.com).
+| Name | Type |
+|------|------|
+| [google_compute_firewall.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_client_config.current](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
 
-If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/slovink/terraform-gcp-firewall)!
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_allow"></a> [allow](#input\_allow) | (Optional) The list of ALLOW rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a permitted connection. | `list(any)` | `[]` | no |
+| <a name="input_deny"></a> [deny](#input\_deny) | (Optional) The list of deny rules specified by this firewall. Each rule specifies a protocol and port-range tuple that describes a permitted connection. | `list(any)` | `[]` | no |
+| <a name="input_direction"></a> [direction](#input\_direction) | Optional) Direction of traffic to which this firewall applies; default is INGRESS. Note: For INGRESS traffic, one of source\_ranges, source\_tags or source\_service\_accounts is required. Possible values are: INGRESS, EGRESS. | `string` | `"INGRESS"` | no |
+| <a name="input_disabled"></a> [disabled](#input\_disabled) | (Optional) Denotes whether the firewall rule is disabled, i.e not applied to the firewall it is associated with. When set to true, the firewall rule is not enforced and the firewall behaves as if it did not exist. If this is unspecified, the firewall rule will be enabled. | `bool` | `false` | no |
+| <a name="input_enabled"></a> [enabled](#input\_enabled) | A boolean flag to enable/disable firewall. | `bool` | `true` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
+| <a name="input_firewall"></a> [firewall](#input\_firewall) | (Required) The VPC firewall the firewall belong to. Only firewalls that are in the distributed mode can have subfirewalls. | `string` | `""` | no |
+| <a name="input_firewall_enabled"></a> [firewall\_enabled](#input\_firewall\_enabled) | A boolean flag to enable/disable firewall. | `bool` | `true` | no |
+| <a name="input_label_order"></a> [label\_order](#input\_label\_order) | Label order, e.g. sequence of application name and environment `name`,`environment`,'attribute' [`webserver`,`qa`,`devops`,`public`,] . | `list(any)` | <pre>[<br>  "name",<br>  "environment"<br>]</pre> | no |
+| <a name="input_managedby"></a> [managedby](#input\_managedby) | ManagedBy, eg 'slovink'. | `string` | `"slovink"` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name of the resource. Provided by the client when the resource is created. | `string` | `""` | no |
+| <a name="input_priority"></a> [priority](#input\_priority) | The priority of this route. | `number` | `1000` | no |
+| <a name="input_repository"></a> [repository](#input\_repository) | Terraform current module repo | `string` | `"https://github.com/slovink/terraform-google-firewall"` | no |
+| <a name="input_source_ranges"></a> [source\_ranges](#input\_source\_ranges) | (Optional) If source ranges are specified, the firewall will apply only to traffic that has source IP address in these ranges. | `any` | `[]` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_firewall_creation_timestamp"></a> [firewall\_creation\_timestamp](#output\_firewall\_creation\_timestamp) | Creation timestamp in RFC3339 text format. |
+| <a name="output_firewall_id"></a> [firewall\_id](#output\_firewall\_id) | Name of the resource. Provided by the client when the resource is created. |
+| <a name="output_firewall_self_link"></a> [firewall\_self\_link](#output\_firewall\_self\_link) | The URI of the created resource. |
+| <a name="output_name"></a> [name](#output\_name) | an identifier for the resource with format |
+<!-- END_TF_DOCS -->
