@@ -8,11 +8,11 @@ provider "google" {
 ##### vpc module call.
 #####==============================================================================
 module "vpc" {
-  source                                     = "git::https://github.com/slovink/terraform-google-firewall.git?ref=v1.0.0"
-  name                                       = "ops"
-  environment                                = "test"
-  routing_mode                               = "REGIONAL"
-  firewall_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
+  source                                    = "git::https://github.com/slovink/terraform-google-network.git?ref=v1.0.0"
+  name                                      = "ops"
+  environment                               = "test"
+  routing_mode                              = "REGIONAL"
+  network_firewall_policy_enforcement_order = "AFTER_CLASSIC_FIREWALL"
 }
 
 #####==============================================================================
@@ -22,7 +22,7 @@ module "firewall" {
   source        = "../"
   name          = "ops"
   environment   = "test"
-  firewall      = module.vpc.vpc_id
+  network       = module.vpc.vpc_id
   priority      = 1000
   source_ranges = ["0.0.0.0/0"]
   allow = [
