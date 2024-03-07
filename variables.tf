@@ -28,7 +28,7 @@ variable "managedby" {
   description = "ManagedBy, eg 'slovink'."
 }
 
-variable "firewall" {
+variable "network" {
   type        = string
   default     = ""
   description = "(Required) The VPC firewall the firewall belong to. Only firewalls that are in the distributed mode can have subfirewalls."

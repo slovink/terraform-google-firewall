@@ -16,7 +16,7 @@ data "google_client_config" "current" {
 resource "google_compute_firewall" "default" {
   count     = var.enabled && var.firewall_enabled ? 1 : 0
   name      = format("%s-firewall", module.labels.id)
-  firewall  = var.firewall
+  network   = var.network
   direction = var.direction
   disabled  = var.disabled
   priority  = var.priority
