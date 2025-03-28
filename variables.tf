@@ -17,11 +17,11 @@ variable "label_order" {
   description = "Label order, e.g. sequence of application name and environment `name`,`environment`, 'attribute' [`webserver`,`qa`,`devops`,`public`,]."
 }
 
-variable "extra_tags" {
-  type        = map(string)
-  default     = {}
-  description = "Additional tags for the resource."
-}
+#variable "extra_tags" {
+#  type        = map(string)
+#  default     = {}
+#  description = "Additional tags for the resource."
+#}
 
 variable "repository" {
   type        = string
