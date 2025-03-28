@@ -82,14 +82,14 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.7.4 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | >= 3.50, < 5.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.5 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | >=6.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | >= 3.50, < 5.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 6.1.0 |
 
 ## Modules
 
