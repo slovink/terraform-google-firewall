@@ -8,7 +8,7 @@ provider "google" {
 ##### vpc module call.
 #####==============================================================================
 module "vpc" {
-  source                                    = "git::https://github.com/slovink/terraform-google-network.git?ref=v1.0.0"
+  source                                    = "git::https://github.com/slovink/terraform-google-network.git?ref=feature/upgrade-repo"
   name                                      = "ops"
   environment                               = "test"
   routing_mode                              = "REGIONAL"
